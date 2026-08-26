@@ -12,7 +12,8 @@ public class PlayerMovement : MonoBehaviour
     private float jumpAnimTime = 0.0f;
     private float dashDir = 1;
     private Vector2 groundCheckSize = new Vector2(0.45f, 0.1f);
-    private Vector2 queueCheckSize = new Vector2(0.45f, 2f);    
+    private Vector2 queueCheckSize = new Vector2(0.45f, 2f); 
+    public Vector2 respawnPos = new Vector2(0.0f, 0.0f);   
     public float dashCD = 0.0f;
     private float dashTime = 0.0f;
     public float playerMaxHealth = 8.0f;
@@ -21,9 +22,12 @@ public class PlayerMovement : MonoBehaviour
     public float playerKBTime = 0.0f;
     public float playerAttackCD = 0.0f;
     private float playerAttackTime=0.0f;
+    private float playerDeathAnimTime = 0.0f;
     public bool grounded = true;
     public float currentSpeed;
     public GameObject playerAttackBox;
+    public GameObject playerDeathScreen;
+    
     public bool isDead = false;
 
     [SerializeField] private Rigidbody2D rb;
@@ -32,14 +36,22 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Animator animator;
 
+
     // Update is called once per frame
     private void Awake()
     {
+        playerDeathScreen.SetActive(false);
+
         playerMaxHealth = 8.0f;
         playerHealth = 8.0f;
     }
     void Update()
     {
+        playerDeathAnimTime -= Time.deltaTime;
+        if(isDead && playerDeathAnimTime <0.0f){
+            playerDeathScreen.SetActive(true);
+            Time.timeScale=0;
+        }
         if(isDead) return;
         
         currentSpeed = rb.linearVelocity.x;
@@ -51,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
         playerKBTime -= Time.deltaTime;
         playerAttackCD -= Time.deltaTime;
         playerAttackTime -= Time.deltaTime;
+        
 
         if (playerHealth > playerMaxHealth)
         {
@@ -144,10 +157,12 @@ public class PlayerMovement : MonoBehaviour
         {
             playerAttackBox.SetActive(false);
         }
-        if(playerHealth<=0.0f){
+        if(playerHealth<=0.0f && !isDead){
             animator.SetTrigger("death");
             isDead = true;
             rb.linearVelocity = Vector2.zero;
+            playerDeathAnimTime = 2.2f;
+            playerHealth=-10000.0f;          
         }
 
 
@@ -267,6 +282,16 @@ public class PlayerMovement : MonoBehaviour
         {
             return 1;
         }
+    }
+    public void respawn()
+    {
+        playerHealth = playerMaxHealth;
+        rb.transform.position = respawnPos;
+        isDead = false;
+        animator.SetTrigger("respawn");
+        playerDeathScreen.SetActive(false);
+        Time.timeScale=1;
+
     }
 
 

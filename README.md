@@ -2,13 +2,13 @@
 
 | Field | Detail |
 |---|---|
-| **Game Title** | |
-| **Student Name(s)** | |
-| **Class / Course** | |
-| **Repository** | |
-| **Unity Version** | |
-| **Document Version** | |
-| **Date** | |
+| **Game Title** |Greenfall |
+| **Student Name(s)** | ConnorK|
+| **Class / Course** |Year 10 Computer Technology |
+| **Repository** | https://github.com/TempeHS/2026CT_GameDesign_Greenfall_Connor.K |
+| **Unity Version** | 6000.0.58f1 |
+| **Document Version** | 0.07 |
+| **Date** | 27/08/26|
 
 ---
 
@@ -31,31 +31,31 @@
 ## 1. Game Overview
 
 ### 1.1 Genre
-
+Action Platformer
 
 ### 1.2 Target Audience
-
+Greenfall is targeted towards 12-30 year olds who enjoy action platformers, and might not fully understand the impacts of industrialisation on the Earth
 
 ### 1.3 Game Summary
-
+Greenfall is a 2d side-scrolling platformer about a character who tries to escape an industrialised wasteland into nature, and has to make their way through obstacles such as enemies and hazards to get through
 
 ### 1.4 Win / Loss Conditions
 | Condition | Description |
 |---|---|
-| Win | |
-| Loss | |
+| Win |Escape the industrialised areas into nature |
+| Loss |Die |
 
 ### 1.5 Platform & Build Settings
 | Setting | Detail |
 |---|---|
-| Target Platform | |
-| Resolution | |
-| Build Type | |
+| Target Platform | Windows |
+| Resolution | 1920*1080 |
+| Build Type | Development |
 
 ---
 
 ## 2. Video Walkthrough
-
+**no**
 ### 2.1 Full Gameplay Walkthrough
 
 <!--
@@ -89,9 +89,9 @@
 ### 3.1 Core Mechanics
 | ID | Mechanic | Description | Implemented In (Script/Object) |
 |---|---|---|---|
-| M-1 | | | |
-| M-2 | | | |
-| M-3 | | | |
+| M-1 |Player Dash | The player can use the LShift key to do a horizontal dash on a cooldown | PlayerMovement |
+| M-2 | Checkpoint | | |
+| M-3 | Health| | |
 | M-4 | | | |
 | M-5 | | | |
 

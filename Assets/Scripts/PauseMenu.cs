@@ -3,10 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    public static bool isGamePaused = false;
     [SerializeField] GameObject pauseMenu;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void pause()
     {
+        isGamePaused = true;
         pauseMenu.SetActive(true);
         Time.timeScale=0;
 
@@ -19,6 +21,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void resume()
     {
+        isGamePaused = false;
         pauseMenu.SetActive(false);
         Time.timeScale=1;
 

@@ -16,6 +16,8 @@ public class NPC : MonoBehaviour, IInteractable
     private int dialogueIndex;
     private bool isTyping, isDialogueActive;
 
+    [SerializeField] private PlayerMovement player;
+
     [SerializeField] private PauseMenu menu;
     public bool canInteract()
     {
@@ -43,8 +45,8 @@ public class NPC : MonoBehaviour, IInteractable
         portraitImage.sprite = dialogueData.npcPortrait;
 
         dialoguePanel.SetActive(true);
-        PauseMenu.isGamePaused = true;
-        Time.timeScale = 0;
+        PlayerMovement.canInput = false;
+        
         StartCoroutine(TypeLine());
         //Typeline
     }
@@ -99,8 +101,7 @@ public class NPC : MonoBehaviour, IInteractable
         isDialogueActive = false;
         dialogueText.SetText("");
         dialoguePanel.SetActive(false);
-        PauseMenu.isGamePaused = false;
-        Time.timeScale = 1;
+        PlayerMovement.canInput = true;
     }
 
     public void outline()

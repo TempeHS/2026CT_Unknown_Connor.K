@@ -27,8 +27,11 @@ public class PlayerMovement : MonoBehaviour
     public float currentSpeed;
     public GameObject playerAttackBox;
     public GameObject playerDeathScreen;
+    private bool hasStopped = false;
     
     public bool isDead = false;
+
+    public static bool canInput = true;
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
@@ -47,12 +50,26 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
+        if(canInput){
+            if(hasStopped){
+                hasStopped = false;
+            }
+        }
         playerDeathAnimTime -= Time.deltaTime;
         if(isDead && playerDeathAnimTime <0.0f){
             playerDeathScreen.SetActive(true);
             Time.timeScale=0;
         }
         if(isDead) return;
+        if(!canInput){
+            animator.SetTrigger("toIdle");
+            if(!hasStopped){
+                rb.linearVelocity = Vector2.zero;
+                animator.SetTrigger("toIdle");
+                hasStopped = true;
+            }
+            return;
+        }
         
         currentSpeed = rb.linearVelocity.x;
         dashTime -= Time.deltaTime;
@@ -178,6 +195,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if(!canInput) return;
         if(isDead) return;
         if (playerKBTime <= 0)
         {

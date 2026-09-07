@@ -17,6 +17,7 @@ public class NPC : MonoBehaviour, IInteractable
     private bool isTyping, isDialogueActive;
 
     [SerializeField] private PlayerMovement player;
+    [SerializeField] private InteractionDetector id;
 
     [SerializeField] private PauseMenu menu;
     public bool canInteract()
@@ -97,11 +98,15 @@ public class NPC : MonoBehaviour, IInteractable
 
     public void EndDialogue()
     {
-        StopAllCoroutines();
         isDialogueActive = false;
+        StopAllCoroutines();
+        
         dialogueText.SetText("");
         dialoguePanel.SetActive(false);
         PlayerMovement.canInput = true;
+        id.interactableInRange = null;
+        id.interactableObject=null;
+        id.interactableInRangeDist = 999999.9999f;
     }
 
     public void outline()
